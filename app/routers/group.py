@@ -28,6 +28,8 @@ def obtener_por_usuario(email:str, db:Session = Depends(get_db)):
     lista = []
     listaDB = db.query(models.Group).all()
     for grupo in listaDB:
-        if(grupo.users.email == email):
-            lista.append(grupo)
+        print(grupo.users)
+        for user in grupo.users:
+            if(user.email == email):
+                lista.append(grupo)
     return lista

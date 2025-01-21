@@ -55,3 +55,4 @@ class UserPayment(Base):
     payment_id = Column(Integer, ForeignKey('payment.payment_id', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
     user_email = Column(Integer, ForeignKey('user.email', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
     quantity = Column(Double)
+    paid = Column(Boolean)

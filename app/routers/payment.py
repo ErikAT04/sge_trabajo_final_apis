@@ -22,3 +22,11 @@ def obtener_por_id(id:int, db:Session=Depends(get_db)):
         if item.payment_id == id:
             return item
     return {"ERR-400" : "No se ha encontrado un pago con ese id"}
+
+@router.get("/{id}/allUsers/")
+def obtener_usuarios_de_pago(id:int, db:Session = Depends(get_db)):
+    lista = db.query(models.Payment).all()
+    for item in lista:
+        if item.payment_id == id:
+            return item.users
+    return {"ERR-400" : "No se ha encontrado un pago con ese id"}
