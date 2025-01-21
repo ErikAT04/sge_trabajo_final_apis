@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.database.database import get_db
@@ -72,11 +73,15 @@ def borrar_usuario(id:int, db:Session = Depends(get_db)):
         return {"Mensaje":"No se ha podido eliminar el pago"}
     
 @router.put("/{id}/updateUsuarios")
-def actualizarUsuarios(id:int, users:list[models.User] ,db:Session = Depends(get_db)):
+def actualizarUsuarios(id:int, users:List[schemas.User] ,db:Session = Depends(get_db)):
     try:
+        modelusers = []
+        for user in users:
+            modelusers.append(db.query(models.User).filter(models.User.email == user.email).first())
+
         pago = db.query(models.Payment).filter(models.Payment.payment_id == id).first()
         if pago:
-            pago.users = users
+            pago.users = modelusers
             quantity = pago/pago.users
             db.commit()
             for item in db.query(models.UserPayment).filter(models.UserPayment.payment_id == id):
