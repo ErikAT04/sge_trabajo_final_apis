@@ -67,3 +67,19 @@ def borrar_grupo(id:int, db:Session = Depends(get_db)):
         return {"Mensaje":"No se ha encontrado al grupo"}
     except:
         return {"Mensaje":"No se ha podido eliminar al grupo"}
+    
+@router.put("/{id}/insertarUsuario/{email}")
+def insertar_usuario_en_grupo(id:int, email:str, db:Session = Depends(get_db)):
+    try:
+        grupo = db.query(models.Group).filter(models.Group.id == id).first()
+        if grupo:
+            usuario = db.query(models.User).filter(models.User.email == email).first()
+            if usuario:
+                grupo.users.append(usuario)
+                db.commit()
+                return {"Mensaje":"Usuario añadido"}
+            else:
+                return{"Mensaje":"No se ha encontrado el usuario"}
+        return {"Mensaje":"No se ha encontrado al grupo"}
+    except:
+        return {"Mensaje":"No se ha podido insertar el usuario"}

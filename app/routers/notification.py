@@ -55,7 +55,7 @@ def actualizar_Notificacion(id:str, notif:schemas.Notification, db:Session = Dep
     return {"Mensaje":"Notificación no actualizada"}
     
 @router.post("/insertar")
-def insertar_usuario(notificacion:schemas.Notification, db:Session=Depends(get_db)):
+def insertar_notificacion(notificacion:schemas.Notification, db:Session=Depends(get_db)):
     try:
         nuevaNotificacion = models.Notification()
         nuevaNotificacion.user_email = notificacion.user_email
@@ -68,7 +68,7 @@ def insertar_usuario(notificacion:schemas.Notification, db:Session=Depends(get_d
         return {"Mensaje":"No se ha podido añadir la notificación"}
     
 @router.delete("/{id}/borrar")
-def borrar_usuario(id:int, db:Session = Depends(get_db)):
+def borrar_notificacion(id:int, db:Session = Depends(get_db)):
     try:
         notif = db.query(models.Notification).filter(models.Notification.notif_id == id).first()
         if notif:

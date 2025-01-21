@@ -33,7 +33,7 @@ def obtener_usuarios_de_pago(id:int, db:Session = Depends(get_db)):
     return {"ERR-400" : "No se ha encontrado un pago con ese id"}
 
 @router.put("/{id}/actualizar")
-def actualizar_usuario(id:int, pago:schemas.Payment, db:Session = Depends(get_db)):
+def actualizar_pago(id:int, pago:schemas.Payment, db:Session = Depends(get_db)):
     antiguoPago = db.query(models.Payment).filter(models.Payment.payment_id == id).first()
     if antiguoPago:
         antiguoPago.payer_email = pago.payer_email
@@ -46,7 +46,7 @@ def actualizar_usuario(id:int, pago:schemas.Payment, db:Session = Depends(get_db
     return {"Mensaje":"Pago no actualizado"}
     
 @router.post("/insertar")
-def insertar_usuario(pago:schemas.Payment, db:Session=Depends(get_db)):
+def insertar_pago(pago:schemas.Payment, db:Session=Depends(get_db)):
     try:
         nuevoPago = models.Payment()
         nuevoPago.payer_email = pago.payer_email
@@ -61,7 +61,7 @@ def insertar_usuario(pago:schemas.Payment, db:Session=Depends(get_db)):
         return {"Mensaje":"No se ha podido añadir el Pago"}
     
 @router.delete("/{id}/borrar")
-def borrar_usuario(id:int, db:Session = Depends(get_db)):
+def borrar_pago(id:int, db:Session = Depends(get_db)):
     try:
         pago = db.query(models.Payment).filter(models.Payment.payment_id == id).first()
         if pago:
@@ -73,7 +73,7 @@ def borrar_usuario(id:int, db:Session = Depends(get_db)):
         return {"Mensaje":"No se ha podido eliminar el pago"}
     
 @router.put("/{id}/updateUsuarios")
-def actualizarUsuarios(id:int, users:List[schemas.User] ,db:Session = Depends(get_db)):
+def actualizar_usuarios(id:int, users:List[schemas.User] ,db:Session = Depends(get_db)):
     try:
         modelusers = []
         for user in users:
@@ -93,7 +93,7 @@ def actualizarUsuarios(id:int, users:List[schemas.User] ,db:Session = Depends(ge
         return {"Mensaje":"No se ha podido eliminar el pago"}
 
 @router.get("/{groupid}/getTotalFrom/{useremail}")
-def getUserDebt(groupid:int, useremail:int, db:Session = Depends(get_db)):
+def obtener_deuda_usuario_grupo(groupid:int, useremail:int, db:Session = Depends(get_db)):
     try:    
         pagos = db.query(models.Payment).filter(models.Payment.group_id == groupid).all()
         user = db.query(models.User).filter(models.User.email == useremail).first()
