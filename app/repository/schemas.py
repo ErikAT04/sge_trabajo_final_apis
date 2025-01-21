@@ -10,23 +10,23 @@ class User(BaseModel):
     groups:list
 
 class Group(BaseModel):
-    id:int
+    id:Optional[int]
     group_name:str
     image:str
-    users:list
 
 class Notification(BaseModel):
-    notif_id:int
-    user:User
-    group:Group
+    notif_id:Optional[int]
+    user_email:str
+    group_id:int
     notif_date:datetime
 
 class Payment(BaseModel):
-    payment_id:int
-    payer:str
-    group:str
+    payment_id:Optional[int]
+    payer_email:str
+    group_id:str
     payment_date:datetime
     payment_args:str
+    quantity:float
 
 # CREATE TABLE `user`(
 # 	email VARCHAR(255) PRIMARY KEY,

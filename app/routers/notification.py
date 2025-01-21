@@ -42,3 +42,39 @@ def obtener_por_usuario(id:int, db:Session = Depends(get_db)):
         if(notif.group_id == id):
             lista.append(notif)
     return lista
+
+@router.put("/{id}/actualizar")
+def actualizar_Notificacion(id:str, notif:schemas.Notification, db:Session = Depends(get_db)):
+    antiguaNotificacion = db.query(models.Notification).filter(models.Notification.notif_id == id).first()
+    if antiguaNotificacion:
+        antiguaNotificacion.user_email = notif.user_email
+        antiguaNotificacion.group_id = notif.group_id
+        antiguaNotificacion.notif_date = notif.notif_date
+        db.commit()
+        return {"Mensaje":"Notificación actualizada"}
+    return {"Mensaje":"Notificación no actualizada"}
+    
+@router.post("/insertar")
+def insertar_usuario(notificacion:schemas.Notification, db:Session=Depends(get_db)):
+    try:
+        nuevaNotificacion = models.Notification()
+        nuevaNotificacion.user_email = notificacion.user_email
+        nuevaNotificacion.group_id = notificacion.group_id
+        nuevaNotificacion.notif_date = notificacion.notif_date
+        db.add(nuevaNotificacion)
+        db.commit()
+        return {"Mensaje":"Notificación insertada"}
+    except:
+        return {"Mensaje":"No se ha podido añadir la notificación"}
+    
+@router.delete("/{id}/borrar")
+def borrar_usuario(id:int, db:Session = Depends(get_db)):
+    try:
+        notif = db.query(models.Notification).filter(models.Notification.notif_id == id).first()
+        if notif:
+            db.delete(notif)
+            db.commit()
+            return {"Mensaje":"Notificación eliminada"}
+        return {"Mensaje":"No se ha encontrado la notificacion"}
+    except:
+        return {"Mensaje":"No se ha podido eliminar la notificación"}

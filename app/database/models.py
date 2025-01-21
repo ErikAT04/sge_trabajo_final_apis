@@ -46,6 +46,7 @@ class Payment(Base):
     group_id = Column(VARCHAR(255), ForeignKey('group.id', ondelete="CASCADE", onupdate="CASCADE"))
     payment_date = Column(DateTime)
     payment_args = Column(VARCHAR(255))
+    total_payment = Column(Double)
     users = relationship('User', secondary='user_payment', back_populates="payments")
     
 
