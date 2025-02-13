@@ -27,8 +27,8 @@ class Group(Base):
 class UserGroup(Base):
     __tablename__="user_group"
     user_email = Column(VARCHAR(255), ForeignKey('user.email', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
-    group_id = Column(VARCHAR(255), ForeignKey('group.id', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
-    debt = Column(Double)
+    group_id = Column(Integer, ForeignKey('group.id', ondelete="CASCADE", onupdate="CASCADE"), primary_key=True)
+    is_admin = Column(Boolean)
 
 
 class Notification(Base):

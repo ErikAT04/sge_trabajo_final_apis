@@ -7,7 +7,6 @@ class User(BaseModel):
     username:str
     password:str
     image:str
-    groups:list
 
 class Group(BaseModel):
     id:Optional[int]
@@ -23,10 +22,16 @@ class Notification(BaseModel):
 class Payment(BaseModel):
     payment_id:Optional[int]
     payer_email:str
-    group_id:str
+    group_id:int
     payment_date:datetime
     payment_args:str
+    total_payment:float
+
+class UserPayment(BaseModel):
+    payment_id:int
+    user_email:str
     quantity:float
+    paid:bool
 
 # CREATE TABLE `user`(
 # 	email VARCHAR(255) PRIMARY KEY,
