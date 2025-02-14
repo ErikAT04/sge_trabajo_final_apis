@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS `group`;
 CREATE TABLE `group`(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
     group_name VARCHAR(255) NOT NULL,
-    image VARCHAR(255) DEFAULT 'https://i.discogs.com/_kK2FFfyrhNnbdTjCGMqfy_2gsMw120aUhKTb3M9kyE/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMTk5/NTg3LTE1NDk4MTEy/MjMtNTczMC5qcGVn.jpeg'
+    image VARCHAR(255) DEFAULT 'https://static.vecteezy.com/system/resources/previews/023/547/344/non_2x/group-icon-free-vector.jpg'
 );
 
 DROP TABLE IF EXISTS `user_group`;
@@ -64,12 +64,12 @@ INSERT INTO `user`(email, username, password) values ('erik@gmail.com', 'ErikAT'
 INSERT INTO `group`(group_name) values('Grupo de prueba');
 INSERT INTO `user_group`(user_email, group_id, is_admin) values ('erik@gmail.com', 1, true);
 
-INSERT INTO `user`(email, username, password) values
-('prueba1@gmail.com', 'Prueba1', sha2('prueba', 256)),
-('prueba2@gmail.com', 'Prueba2', sha2('prueba', 256)),
-('prueba3@gmail.com', 'Prueba3', sha2('prueba', 256)),
-('prueba4@gmail.com', 'Prueba4', sha2('prueba', 256)),
-('prueba5@gmail.com', 'Prueba5', sha2('prueba', 256));
+INSERT INTO `user`(email, username, password, image) values
+('prueba1@gmail.com', 'Prueba1', sha2('prueba', 256), 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyKcjZ-kU3-GrVs1pmdnb8zQf2mtXDB2R1Uw&s'),
+('prueba2@gmail.com', 'Prueba2', sha2('prueba', 256), 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHBWVZVRa616uJT9aj_L_tJwVB3X8c9EZaIw&s'),
+('prueba3@gmail.com', 'Prueba3', sha2('prueba', 256), 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png'),
+('prueba4@gmail.com', 'Prueba4', sha2('prueba', 256), 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8GDrMMZ3vCvSZHCYRrj9AvIOIN5rZIXDyKA&s'),
+('prueba5@gmail.com', 'Prueba5', sha2('prueba', 256), 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_C0bk8a08vSD6T_mKMrLqhRIxjQwcSheZTQ&s');
 
 INSERT INTO `user_group`(user_email, group_id) values
 ('prueba1@gmail.com', 1),
@@ -77,7 +77,7 @@ INSERT INTO `user_group`(user_email, group_id) values
 ('prueba3@gmail.com', 1),
 ('prueba4@gmail.com', 1);
 
-INSERT INTO `payment`(payer_email, group_id, payment_date, payment_args, total_payment) values ('prueba1@gmail.com', 1, NOW(), "Concepto de Prueba", 60);
+INSERT INTO `payment`(payer_email, group_id, payment_date, payment_args, total_payment) values ('prueba1@gmail.com', 1, NOW(), "Concepto de Prueba", 45);
 
 INSERT INTO `user_payment`(payment_id, user_email, quantity, paid) VALUES
 (1, 'prueba2@gmail.com', 15, false),
@@ -85,6 +85,3 @@ INSERT INTO `user_payment`(payment_id, user_email, quantity, paid) VALUES
 (1, 'prueba4@gmail.com', 15, true);
 
 INSERT INTO `notification`(user_email, group_id, notif_date) values('prueba5@gmail.com', 1, NOW());
-
-INSERT INTO `payment`(payer_email, group_id, payment_date, payment_args, total_payment) values ('prueba1@gmail.com', 1, NOW(), "Concepto de Prueba", 20);
-INSERT INTO `user_payment`(payment_id, user_email, quantity, paid) VALUES (2, 'erik@gmail.com', 10, false);
