@@ -12,11 +12,10 @@ SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{user}:{password}@mysql-1296e
 # Motor de conexion de la bd
 ssl_args = {
     'ssl': {
-        'sslmode': 'REQUIRED',
-        'ca': '/app/database/ca.pem'
+        'ca': 'ca.pem'
     }
 }
-engine = create_engine(SQLALCHEMY_DATABASE_URL, ssl_args)
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 # Crea el generador de sesiones de la BD
 sessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 # Modelos de la BD
