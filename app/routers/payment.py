@@ -116,3 +116,14 @@ def insertar_usuarios_en_pago(rel:schemas.UserPayment, db:Session = Depends(get_
     db.add(rel_insertar)
     db.commit()
     return "Usuario insertado"
+
+# Eliminación de todos los usuarios de un pago
+@router.delete("/{id}/erasePayers")
+def borrar_usuarios_de_pago(id:int, db:Session = Depends(get_db)):
+    # Se buscan todas las relaciones de usuario_pago
+    rels = db.query(models.UserPayment).filter(models.UserPayment.payment_id == id).all()
+    for rel in rels:
+        # Se borran de una en una
+        db.delete(rel)
+    db.commit()
+    return "Borrados correctamente"
