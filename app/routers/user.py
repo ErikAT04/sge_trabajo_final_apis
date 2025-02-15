@@ -26,12 +26,10 @@ def obtener_por_id(id:str, db:Session=Depends(get_db)):
 # Borrado por email
 @router.delete("/{email}/borrar")
 def borrar_usuario(email:str, db:Session = Depends(get_db)):
-    objeto = db.query(models.User).all() # Se recogen todos los usuarios
-    for item in objeto:
-        if item.email == email: # Si alguno de ellos tiene el email puesto previamente, se elimina
-            db.delete(item)
-            return"Usuario eliminado correctamente"
-    return "No se ha encontrado un usuario con ese correo o nombre"
+    objeto = db.query(models.User).filter(models.User.email == email).first() # Se recogen todos los usuarios
+    db.delete(objeto)
+    db.commit()
+    return"Usuario eliminado correctamente"
 # Actualización por email
 @router.put("/{email}/actualizar")
 def actualizar_usuario(email:str, usuario:schemas.User, db:Session = Depends(get_db)):
