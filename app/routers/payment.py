@@ -40,7 +40,7 @@ def actualizar_pago(id:int, pago:schemas.Payment, db:Session = Depends(get_db)):
 # Inserción de Pago 
 @router.post("/insertar")
 def insertar_pago(pago:schemas.Payment, db:Session=Depends(get_db)):
-    try:
+    
         # Carga un nuevo pago con los datos del esquema recibido por JSON
         nuevoPago = models.Payment()
         nuevoPago.payer_email = pago.payer_email
@@ -51,8 +51,7 @@ def insertar_pago(pago:schemas.Payment, db:Session=Depends(get_db)):
         db.add(nuevoPago)
         db.commit()
         return "Pago insertado"
-    except:
-        return "No se ha podido añadir el Pago"
+    
 # Borrado de Pago
 @router.delete("/{id}/borrar")
 def borrar_pago(id:int, db:Session = Depends(get_db)):
