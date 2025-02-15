@@ -103,7 +103,7 @@ user_groups = [
 
 cur.executemany("INSERT INTO user_group (user_email, group_id) VALUES (?, ?)", user_groups)
 
-cur.execute("INSERT INTO payment (payer_email, group_id , payment_date, payment_args, total_payment) VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?)", 
+cur.execute("INSERT INTO payment (payer_email, group_id , payment_date, payment_args, total_payment) VALUES (?, ?, '2025-02-04', ?, ?)", 
                ('prueba1@gmail.com', 1, 'Concepto de Prueba', 45))
 
 user_payments = [
