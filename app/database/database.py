@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
 # Nombre de usuario del SGBD
 user ="avnadmin"
 # Contraseña del usuario del SGBD
@@ -8,14 +7,9 @@ password = "AVNS_NIKxikhltFInnUgm-rG"
 # Nombre de la BD
 dbname = "defaultdb"
 # URL de la BD
-SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{user}:{password}@mysql-1296e07c-aterik-c203.j.aivencloud.com:13888/{dbname}?charset=utf8mb4"
-# Motor de conexion de la bd
-ssl_args = {
-    'ssl': {
-        'ca': 'ca.pem'
-    }
-}
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+SQLALCHEMY_DATABASE_URL = f"sqlite:///app/database/local.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+
 # Crea el generador de sesiones de la BD
 sessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 # Modelos de la BD
