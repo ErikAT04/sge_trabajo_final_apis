@@ -33,7 +33,7 @@ def actualizar_pago(id:int, pago:schemas.Payment, db:Session = Depends(get_db)):
         antiguoPago.payment_args = pago.payment_args
         antiguoPago.payment_date = pago.payment_date
         antiguoPago.group_id = pago.group_id
-        antiguoPago.total_payment = pago.total_payment
+        antiguoPago.total_payment = float(format(pago.total_payment, ".2f"))
         db.commit()
         return "Pago actualizado"
     return "Pago no actualizado"
@@ -47,7 +47,7 @@ def insertar_pago(pago:schemas.Payment, db:Session=Depends(get_db)):
         nuevoPago.payment_args = pago.payment_args
         nuevoPago.payment_date = pago.payment_date
         nuevoPago.group_id = pago.group_id
-        nuevoPago.total_payment = pago.total_payment
+        nuevoPago.total_payment = float(format(pago.total_payment, ".2f"))
         db.add(nuevoPago)
         db.commit()
         return "Pago insertado"
